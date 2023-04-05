@@ -2,7 +2,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 
 import './marvel-card.scss';
-
 import Button from '../button/Button';
 
 type CharacterData = {
@@ -18,17 +17,20 @@ type CharacterData = {
     character: CharacterData;
   };
 
+  
   const MarvelCard = ({ character }: MarvelCardProps) => {
     const { id, name, thumbnail } = character;
 
     return (
         <div>
-            <div className="marvel-card" style={{backgroundImage:`url(${thumbnail.path}.${thumbnail.extension})`}}>
-                <Button>
+            <section className="card"> 
+            <div className="marvel-card card" style={{backgroundImage:`url(${thumbnail.path}.${thumbnail.extension})`}}>
+                {/* <Button>
                     <i className="bx bx-play">Try the chekboxes below !</i>
-                </Button>
+                </Button> */}
                 
             </div>
+            </section>
             <h2 className="marvel-card__name">{name}</h2>
 
         </div>

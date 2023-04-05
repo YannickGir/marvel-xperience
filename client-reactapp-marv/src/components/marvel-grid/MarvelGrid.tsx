@@ -32,10 +32,10 @@ const MarvelGrid = (_props: any) => {
       const response = await fetch('http://localhost:4000/');
       const data = await response.json();
       setCharacters(data.data.results);
-      setLoading(false);
+    //   setLoading(false);
     } catch (error) {
       console.error(error);
-      setError('Something went wrong');
+    //   setError('Something went wrong');
     }
   };
 
@@ -58,11 +58,11 @@ const MarvelGrid = (_props: any) => {
 export default MarvelGrid;
 
 
-function setLoading(_arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
+// function setLoading(_arg0: boolean) {
+//     throw new Error('Function not implemented.');
+// }
 
-function setError(_arg0: string) {
-    throw new Error('Function not implemented.');
-}
+// function setError(_arg0: string) {
+//     throw new Error('Function not implemented.');
+// }
 

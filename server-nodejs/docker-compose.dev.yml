@@ -10,5 +10,5 @@ services:
       - /usr/src/app/node_modules 
     command: npm run dev 
     ports:
-      - 4000:4000 
+      - 5000:5000 
          
