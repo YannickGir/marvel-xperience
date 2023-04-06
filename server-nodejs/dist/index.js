@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
 const port = process.env.PORT || 4000;
-//to allow requests from any domain:
+//to allow requests from domain:
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
@@ -19,10 +19,10 @@ app.get('/', async (_req, res) => {
         const hash = createHash('md5')
             .update(timestamp + (privateKey ?? "") + publicKey)
             .digest('hex');
-        const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`);
+        const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`);
         const data = (await response.json());
         res.json(data);
-        // console.log(data.data.results[0].comics.items[1].name);
+        console.log(data.data.results[0].comics.items[1].name);
     }
     catch (error) {
         console.error(error);

@@ -45,11 +45,11 @@ app.get('/', async (_req: Request, res: Response) => {
     .digest('hex');
 
     const response = await fetch(
-      `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}`
+      `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`
     );
     const data = (await response.json()) as CharacterData;
     res.json(data);
-    // console.log(data.data.results[0].comics.items[1].name);
+    console.log(data.data.results[0].comics.items[1].name);
     
   } catch (error) {
     console.error(error);
