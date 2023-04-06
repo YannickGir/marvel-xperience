@@ -2,6 +2,7 @@
 @use "../../scss/" as *;
 
 .marvel-card {
+    width: 20rem;
     position: relative;
     background-position: top;
     background-repeat: no-repeat;
@@ -186,7 +187,6 @@
         }
       
         p {
-          margin: 0;
           text-align: center !important;
         }
       }
@@ -250,3 +250,69 @@
         margin: 0;
         text-align: center !important;
       }
+
+      .checkbox-list {
+        align-items: center;
+        text-align: center;
+      }
+
+      label {
+        margin-right: 1rem;
+        margin-left: 0.5rem;
+        font-size: 20px;
+      }
+      input {
+        // margin-right: 0.5rem;
+        margin-left: 1.5rem;
+      }
+
+      p {
+        font-size: 20px;
+        font-family: "Montserrat", sans-serif;;
+      }
+
+      .line-1 {
+        height: 1px;
+        background: black;
+      }
+
+      hr {
+        border:none;
+        height: 20px;
+           width: 90%;
+          height: 50px;
+          margin-top: 0;
+          box-shadow: 0 20px 20px -20px #f5f0f0;
+        margin: -50px auto 10px; 
+      }
+      .top {
+        border:none;
+        height: 20px;
+           width: 90%;
+          height: 50px;
+          margin-top: 0;
+          box-shadow: 0 -20px 20px -20px #f5f0f0;
+        margin: 5px auto 10px; 
+      }
+
+      input[type="checkbox"]:focus {
+        outline: max(2px, 0.15em) solid currentColor;
+        outline-offset: max(2px, 0.15em);
+      }
+      input[type="checkbox"] {
+        -webkit-appearance: none;
+        appearance: none;
+        background-color: #e00404;
+        margin: 1;
+        //custom style:
+        font: inherit;
+        color: currentColor;
+        width: 1.30em;
+        height: 1.30em;
+        border: 0.15em solid currentColor;
+        border-radius: 1em;
+        transform: translateY(-0.075em);
+
+        place-content: center;
+      }
+      

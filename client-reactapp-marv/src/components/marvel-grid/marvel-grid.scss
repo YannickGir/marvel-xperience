@@ -14,3 +14,18 @@
         text-align: center;
     }
 }
+.load-buttons {
+    text-align: center;
+    padding-right: 5px;
+    
+  }
+
+  .load-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .load-more button:first-child {
+    margin-right: 20rem;
+  }

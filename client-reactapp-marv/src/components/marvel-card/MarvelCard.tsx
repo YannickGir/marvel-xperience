@@ -109,7 +109,11 @@ type CharacterData = {
           <Button>
             <i className="bx bx-play">Try the checkboxes below!</i>
           </Button>
-          <div className="checkbox-list">
+        
+        </div>
+      </section>
+      <section>
+      <div className="checkbox-list">
             <input type="checkbox" id="stories" value="stories" onChange={handleChange} checked={selectedOption === 'stories'} />
             <label htmlFor="stories">Stories</label>
             <input type="checkbox" id="comics" value="comics" onChange={handleChange} checked={selectedOption === 'comics'} />
@@ -117,11 +121,14 @@ type CharacterData = {
             <input type="checkbox" id="series" value="series" onChange={handleChange} checked={selectedOption === 'series'} />
             <label htmlFor="series">Series</label>
           </div>
-        </div>
-      </section>
-      <section>
-        <h2 className="marvel-card__name">{name}</h2>
-        {getSelectedItems()}
+        <h1 className="marvel-card__name">{name}</h1>
+        {/* <div> */}
+      <hr
+      />
+        <p>{getSelectedItems()}</p>
+
+        <hr className='top'
+      />
       </section>
     </div>
   );

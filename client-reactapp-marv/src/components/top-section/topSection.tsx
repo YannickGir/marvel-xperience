@@ -34,7 +34,7 @@ const RightContainer = styled.div`
     flex
     flex-col
     relative
-    mr-28
+    mr-72
     
   `};
 `;
@@ -56,17 +56,25 @@ const BlobContainer = styled.div`
   }
 
   @media (min-width: ${SCREENS.sm}) {
-    width: 40em;
+    width: 20em;
     max-height: 10em;
-    right: -5em;
+    right: -18em;
     top: -12em;
    
   }
 
-  @media (min-width: ${SCREENS.lg}) {
-    width: 50em;
+  @media (min-width: ${SCREENS.md}) {
+    width: 30em;
     max-height: 30em;
-    right: -8em;
+    right: -40em;
+    top: -15em;
+   
+  }
+
+  @media (min-width: ${SCREENS.lg}) {
+    width: 30em;
+    max-height: 30em;
+    right: -24em;
     top: -15em;
    
   }
@@ -74,7 +82,7 @@ const BlobContainer = styled.div`
   @media (min-width: ${SCREENS.xl}) {
     width: 40em;
     max-height: 30em;
-    left: 54em;
+    left: 60em;
     top: -15em;
   
     
@@ -97,19 +105,19 @@ const StandaloneMarv = styled.div`
 
   @media (min-width: ${SCREENS.sm}) {
     height: 16em;
-    right: -10em;
+    right: -18em;
     top: -8em;
   }
 
   @media (min-width: ${SCREENS.lg}) {
     height: 21em;
-    right: -12em;
+    right: -24em;
     top: -8em;
   }
 
   @media (min-width: ${SCREENS.xl}) {
     height: 28em;
-    right: -13em;
+    right: -24em;
     top: -8em;
   }
 `;
