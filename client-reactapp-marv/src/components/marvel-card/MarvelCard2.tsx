@@ -5,6 +5,8 @@ import './marvel-card.scss';
 import Button from '../button/Button';
 
 type CharacterData = {
+    map(arg0: (result: any) => JSX.Element[]): JSX.Element[];
+    selectedList: string;
     id: number,
     name: string,
     thumbnail: {
@@ -39,65 +41,53 @@ type CharacterData = {
       }[];
     },
 };
-  
 
-  type MarvelCardProps = {
+type MarvelCardProps = {
     character: CharacterData;
-  };
+    isloading: boolean;
+    dataFromPages: CharacterData[][];
+
+  }
 
   type CharacterProperty = keyof Pick<CharacterData, 'stories' | 'comics' | 'series'>;
   
-  const MarvelCard = ({ character }: MarvelCardProps) => {
-    const { id, name, thumbnail, stories, comics, series } = character;
+  const MarvelCard2 = ({ character, isloading, dataFromPages }: MarvelCardProps) => {
 
-
+    const { name, thumbnail} = character;
     const [selectedOption, setSelectedOption] = useState<CharacterProperty>('stories');
 
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
-        
           setSelectedOption(value as CharacterProperty);
-     
       }, []);
 
-       const renderDataFilteredbyReact = useCallback(() => {
-    switch (selectedOption) {
-      case 'stories':
-        return (
-          <div className="marvel-card-datas"><h2>Stories</h2> <br/>
-            {stories?.items?.map((story) => (
-              <p key={story.resourceURI}>{story.name}</p>
-             
-            ))}
-          </div>
-        );
-      case 'comics':
-        return (
-          <div className="marvel-card-datas "><h2>Comics</h2> <br/>
-            {comics?.items?.map((comic) => (
-              <p key={comic.resourceURI}>{comic.name}</p>
-            ))}
-          </div>
-        );
-      case 'series':
-        return (
-          <div className="marvel-card-datas "><h2>Series</h2> <br/>
-            {series?.items?.map((series) => (
-              <p key={series.resourceURI}>{series.name}</p>
-            ))}
-          </div>
-        );
-      default:
-        return null;
+      const renderDataFilteredbyApi = () => 
+        {
+            if (isloading) 
+            {
+                return <div>Loading data...</div>;
+            }
+            const selectedList = character[selectedOption];
+    if (!selectedList) {
+      return <div>Select a list to display</div>;
     }
-  }, [selectedOption, stories?.items, comics?.items, series?.items]);
-    
-  return (
+    const items = selectedList.items;
+    return (
+      <div className="marvel-card-datas">
+        <h2>{selectedOption}</h2>
+        {items?.map((item) => (
+          <p key={item.resourceURI}>{item.name}</p>
+        ))}
+      </div>
+    );
+  };
+        
+    return (
     <div className="marvel-card-container">
       <section className="card">
         <div className="marvel-card card" style={{ backgroundImage: `url(${thumbnail.path}.${thumbnail.extension})` }}>
           <Button>
-            <i className="bx bx-play">Try the checkboxes below!</i>
+            <i className="bx bx-play">Try the checkboxes below!</i> 
           </Button>
         
         </div>
@@ -112,16 +102,17 @@ type CharacterData = {
             <label htmlFor="series">Series</label>
           </div>
         <h1 className="marvel-card__name">{name}</h1>
-       
+        
       <hr
       />
-        {renderDataFilteredbyReact()}
+        {renderDataFilteredbyApi()}
 
         <hr className='bottomhr'
-      />
+      /> <br/>
       </section>
     </div>
-  );
-}
+    );
+  };
+  
 
-export default MarvelCard;
+export default MarvelCard2;

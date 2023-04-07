@@ -18,8 +18,8 @@ const headerNav = [
         path: '/'
     },
     {
-        display: 'Presto',
-        path: '/Presto'
+        display: 'Home2',
+        path: '/home2'
     },
     {
         display: 'Dev&art',
@@ -82,7 +82,7 @@ const Header = () => {
             <div className="header__wrap container">
                 <div className="logo">
                     <img src={logo} alt="" />
-                    <Link to="/"><p> </p>The Marvel Xperience</Link>
+                    <Link to="/">The Marvel Xperience</Link>
                     
                 </div>
                 <ul className="header__nav">

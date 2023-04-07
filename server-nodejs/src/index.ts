@@ -13,20 +13,39 @@ const port = process.env.PORT || 4000;
 //to allow requests from domain:
 app.use(cors({
     origin: 'http://localhost:3000'
-  }));
+}));
 
 type CharacterData = {
+    selectedList: string;
     data: {
       results: {
         id: number;
         name: string;
         description: string;
-        comics: {
-            items: {
-            resourceURI:string,
-            name:string
-        }[]
-            }
+        comics?: {
+          available: number;
+          collectionURI: string;
+          items: {
+            resourceURI: string;
+            name: string;
+          }[];
+        };
+        series?: {
+          available: number;
+          collectionURI: string;
+          items: {
+            resourceURI: string;
+            name: string;
+          }[];
+        };
+        stories?: {
+          available: number;
+          collectionURI: string;
+          items: {
+            resourceURI: string;
+            name: string;
+          }[];
+        };
         thumbnail: {
           path: string;
           extension: string;
@@ -35,22 +54,46 @@ type CharacterData = {
     };
   };
 
-app.get('/', async (_req: Request, res: Response) => {
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Hello World!');
+  });
+
+app.get('/marvel-api', async (req: Request, res: Response) => {
   try {
     const publicKey = process.env.PUBLIC_KEY;
     const privateKey = process.env.PRIVATE_KEY;
     const timestamp = new Date().getTime();
     const hash = createHash('md5')
-    .update(timestamp + (privateKey ?? "") + publicKey)
-    .digest('hex');
+      .update(timestamp + (privateKey ?? '') + publicKey)
+      .digest('hex');
 
-    const response = await fetch(
-      `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`
-    );
+    const { list } = req.query;
+
+    let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=30`;
+    let selectedList = '';
+
+    switch (list) {
+      case 'comic':
+        apiURL += '&hasDigitalComic=true';
+        selectedList = 'comics';
+        break;
+      case 'series':
+        apiURL += '&hasSeries=true';
+        selectedList = 'series';
+        break;
+      case 'stories':
+        apiURL += '&hasStory=true';
+        selectedList = 'stories';
+        break;
+      default:
+        selectedList = 'none';
+        break;
+    }
+
+    const response = await fetch(apiURL);
     const data = (await response.json()) as CharacterData;
+    data.selectedList = selectedList;
     res.json(data);
-    console.log(data.data.results[0].comics.items[1].name);
-    
   } catch (error) {
     console.error(error);
     res.render('error', { message: 'Something went wrong' });

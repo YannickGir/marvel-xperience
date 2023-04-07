@@ -11,18 +11,41 @@ const port = process.env.PORT || 4000;
 app.use(cors({
     origin: 'http://localhost:3000'
 }));
-app.get('/', async (_req, res) => {
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+app.get('/marvel-api', async (req, res) => {
     try {
         const publicKey = process.env.PUBLIC_KEY;
         const privateKey = process.env.PRIVATE_KEY;
         const timestamp = new Date().getTime();
         const hash = createHash('md5')
-            .update(timestamp + (privateKey ?? "") + publicKey)
+            .update(timestamp + (privateKey ?? '') + publicKey)
             .digest('hex');
-        const response = await fetch(`https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`);
+        const { list } = req.query;
+        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=30`;
+        let selectedList = '';
+        switch (list) {
+            case 'comic':
+                apiURL += '&hasDigitalComic=true';
+                selectedList = 'comics';
+                break;
+            case 'series':
+                apiURL += '&hasSeries=true';
+                selectedList = 'series';
+                break;
+            case 'stories':
+                apiURL += '&hasStory=true';
+                selectedList = 'stories';
+                break;
+            default:
+                selectedList = 'none';
+                break;
+        }
+        const response = await fetch(apiURL);
         const data = (await response.json());
+        data.selectedList = selectedList;
         res.json(data);
-        console.log(data.data.results[0].comics.items[1].name);
     }
     catch (error) {
         console.error(error);
