@@ -1,3 +1,4 @@
+
 version: "3.8"
 
 services:
@@ -6,10 +7,11 @@ services:
       - "com.docker.compose.container-number=1"
     build:
       context: .
+      dockerfile: Dockerfile.multi-stage
       target: development  
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules 
-    command: npm run dev 
+    command: npm start 
     ports:
       - 6000:6000 

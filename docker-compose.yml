@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  react:
+    labels:
+      - "com.docker.compose.container-number=1"
+    build:
+      context: ./client-reactapp-marv
+      dockerfile: Dockerfile.multi-stage
+      target: development
+    volumes:
+      - ./client-reactapp-marv:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    ports:
+      - 6000:6000
+
+  api:
+    labels:
+      - "com.docker.compose.container-number=2"
+    build:
+      context: ./server-nodejs
+      dockerfile: Dockerfile.multi-stage
+      target: development
+    volumes:
+      - ./server-nodejs:/usr/src/app
+      - /usr/src/app/node_modules
+    command: npm run dev
+    ports:
+      - 5000:5000
