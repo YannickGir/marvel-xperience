@@ -15,7 +15,6 @@ stages:
 cache:
   paths:
     - node_modules/
-  before_cache: "rm -rf node_modules"
 
 before_script:
   - apk update && apk add --no-cache git
