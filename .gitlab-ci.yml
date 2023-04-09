@@ -56,4 +56,5 @@ deploy:
     - aws configure set aws_secret_access_key <zzZLhWRE109w2jtf268337hH1uGyqhkpTxkuo7D2>
     - aws configure set region <Global>
     - eb init <devandart> --platform "Docker" --region <Global>
-    - eb create <marvelapp>
+    - eb create <marvelapp> 
+    
