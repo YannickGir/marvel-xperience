@@ -30,7 +30,7 @@ build:
 test:
   stage: test
   script:
-    - npx jest app.test.js
+    - npx jest app.test.js  
 
 # deploy:
 #   stage: deploy
