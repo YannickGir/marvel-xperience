@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  api:
+    labels:
+      - "com.docker.compose.container-number=2"
+    build:
+      context: .
+      Dockerfile: Dockerfile.multi-stage
+      target: development  
+    volumes:
+      - ./usr/src/app
+      - /usr/src/app/node_modules 
+    command: npm run dev 
+    ports:
+      - 5000:5000 
+      
+         
