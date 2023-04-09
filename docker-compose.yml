@@ -28,3 +28,10 @@ services:
     command: npm run dev
     ports:
       - 5000:5000
+
+  # web:
+  #   build: .
+  #   ports:
+  #     - "80:3000"
+  #   container_name: myappMarvelXperience
+  #   image: marvel-xperience:latest

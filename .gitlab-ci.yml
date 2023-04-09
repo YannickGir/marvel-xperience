@@ -1,3 +1,4 @@
+
 image: docker:latest
 
 variables:
@@ -26,6 +27,11 @@ build:
   stage: build
   script:
     - docker-compose -f docker-compose.dev.yml up -d --build
+    - docker tag project_react:latest <your_aws_account_id>.dkr.ecr.<your_aws_region>.amazonaws.com/project_react:latest
+    - docker tag project_server:latest <your_aws_account_id>.dkr.ecr.<your_aws_region>.amazonaws.com/project_server:latest
+    - aws ecr get-login-password --region <your_aws_region> | docker login --username AWS --password-stdin <your_aws_account_id>.dkr.ecr.<your_aws_region>.amazonaws.com
+    - docker push <your_aws_account_id>.dkr.ecr.<your_aws_region>.amazonaws.com/project_react:latest
+    - docker push <your_aws_account_id>.dkr.ecr.<your_aws_region>.amazonaws.com/project_server:latest
 
 test:
   stage: test
@@ -38,3 +44,16 @@ test:
 #     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN registry.example.com
 #     - docker tag myapp registry.example.com/myapp
 #     - docker push registry.example.com/myapp
+deploy:
+  image: python:3.8
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - pip install awsebcli --upgrade --user
+    - export PATH=$PATH:$HOME/.local/bin
+    - aws configure set aws_access_key_id <AKIA2JT2KMSZKHTL3FAB>
+    - aws configure set aws_secret_access_key <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>
+    - aws configure set region <Global>
+    - eb init <devandart> --platform "Docker" --region <Global>
+    - eb create <marvelapp>

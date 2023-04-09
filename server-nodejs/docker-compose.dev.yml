@@ -16,4 +16,9 @@ services:
     ports:
       - 5000:5000 
       
+  web:
+    build: .
+    image: devandart/marvelappserver:latest
+    ports:
+      - "8000:8000"
          

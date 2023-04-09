@@ -15,3 +15,9 @@ services:
     command: npm start 
     ports:
       - 6000:6000 
+
+  web:
+      build: .
+      image: devandart/marvelappclient:latest
+      ports:
+        - "7000:7000"

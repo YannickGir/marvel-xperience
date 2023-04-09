@@ -4,9 +4,12 @@ import cors from 'cors';
 const fetch = (await import('node-fetch')).default;
 const app = express();
 import dotenv from 'dotenv';
+import NodeCache from 'node-cache';
 dotenv.config();
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
 const port = process.env.PORT || 4000;
+// Create a cache instance
+const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 //to allow requests from domain:
 app.use(cors({
     origin: 'http://localhost:3000'
@@ -42,9 +45,17 @@ app.get('/marvel-api', async (req, res) => {
                 selectedList = 'none';
                 break;
         }
+        // Check if the result is already cached
+        const cacheKey = `${apiURL}-${selectedList}`;
+        const cachedResult = cache.get(cacheKey);
+        if (cachedResult) {
+            return res.json(cachedResult);
+        }
         const response = await fetch(apiURL);
         const data = (await response.json());
         data.selectedList = selectedList;
+        // Store the result in the cache
+        cache.set(cacheKey, data);
         res.json(data);
     }
     catch (error) {
