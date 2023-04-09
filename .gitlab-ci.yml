@@ -4,8 +4,8 @@ require('dotenv').config();
 image: docker:latest
 
 variables:
-const publicKey = process.env.PUBLIC_KEY;
-const privateKey = process.env.PRIVATE_KEY;
+  PUBLIC_KEY: your_public_key
+  PRIVATE_KEY: your_private_key
 
 services:
   - docker:dind
