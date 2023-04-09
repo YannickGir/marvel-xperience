@@ -1,4 +1,7 @@
-@use "../../scss/" as *;
+@use "../../SCSS/variables"as *;
+@use "../../SCSS/mixin"as *;
+@use "../../SCSS/index"as *;
+@use "../../SCSS/breakpoint"as *;
 
 .footer {
     position: relative;

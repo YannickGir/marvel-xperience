@@ -52,10 +52,12 @@ describe('Test Marvel API', () => {
     });
   });
   
-  afterAll(async () => {
+  //to wait for 10 seconds after running the tests to make sure there are no open handles :
+  afterAll(async () => {    
     await new Promise((resolve) => setTimeout(() => resolve(), 10000));
   });
   
+  // to check if there were any assertions in the test and reset the modules:
   afterEach(() => {
     if (expect.hasAssertions()) {
       expect.hasAssertions();
@@ -63,5 +65,5 @@ describe('Test Marvel API', () => {
     }
   });
   
-  jest.setTimeout(30000);
+  jest.setTimeout(30000);  // to prevents the test from timing out if the API response takes longer than the default timeout
   

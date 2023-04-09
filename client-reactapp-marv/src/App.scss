@@ -1,4 +1,9 @@
-@use "./scss/" as *;
+@use "./SCSS/variables"as *;
+@use "./SCSS/mixin"as *;
+@use "./SCSS/index"as *;
+@use "./SCSS/breakpoint"as *;
+
+
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
 

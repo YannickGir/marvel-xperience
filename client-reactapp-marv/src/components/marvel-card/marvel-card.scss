@@ -1,5 +1,8 @@
 
-@use "../../scss/" as *;
+@use "../../SCSS/variables"as *;
+@use "../../SCSS/mixin"as *;
+@use "../../SCSS/index"as *;
+@use "../../SCSS/breakpoint"as *;
 
 .marvel-card {
     width: 20rem;
