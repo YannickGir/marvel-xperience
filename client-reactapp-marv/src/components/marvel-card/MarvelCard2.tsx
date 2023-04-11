@@ -48,40 +48,61 @@ type MarvelCardProps = {
     dataFromPages: CharacterData[][];
 
   }
-
-  type CharacterProperty = keyof Pick<CharacterData, 'stories' | 'comics' | 'series'>;
+  type CharacterPropertyname = keyof Pick<CharacterData, 'name'>;
+  type CharacterProperty =  'stories' | 'comics' | 'series'| null;
   
   const MarvelCard2 = ({ character, isloading, dataFromPages }: MarvelCardProps) => {
 
     const { name, thumbnail} = character;
-    const [selectedOption, setSelectedOption] = useState<CharacterProperty>('stories');
+    const [selectedOption, setSelectedOption] = useState<CharacterProperty | null>(null);
+    const [characterName, setCharacterName] = useState('');
+    const [showCharacterName, setShowCharacterName] = useState<CharacterPropertyname>('name');
 
-    const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-          setSelectedOption(value as CharacterProperty);
+    const handleChangeName = useCallback(() => {
+        setSelectedOption(null);
+        setShowCharacterName('name');
       }, []);
+      
+      const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value;
+        setSelectedOption(value as CharacterProperty);
+        if (value === 'name') {
+          handleChangeName();
+        }
+      }, [handleChangeName]);
 
-      const renderDataFilteredbyApi = () => 
-        {
-            if (isloading) 
-            {
-                return <div>Loading data...</div>;
-            }
-            const selectedList = character[selectedOption];
-    if (!selectedList) {
-      return <div>Select a list to display</div>;
-    }
-    const items = selectedList.items;
-    return (
-      <div className="marvel-card-datas">
-        <h2>{selectedOption}</h2>
-        {items?.map((item) => (
-          <p key={item.resourceURI}>{item.name}</p>
-        ))}
-      </div>
-    );
-  };
+      const renderDataFilteredbyApi = () => {
+        if (isloading) {
+          return <div>Loading data...</div>;
+        }
         
+        if (!selectedOption) {
+          return <h1 className="marvel-card__name">{showCharacterName ? characterName : ''}</h1>
+        } else {
+          const selectedList = character[selectedOption];
+          if (!selectedList) {
+            return <div>Select a list to display</div>;
+          }
+          const items = selectedList.items;
+      
+          return (
+            <div className="marvel-card-datas">
+              <h2>{selectedOption}</h2>
+              {items?.map((item) => (
+                <p key={item.resourceURI}>{item.name}</p>
+              ))}
+            </div>
+          );
+        }
+      };
+        
+  useEffect(() => {
+    if (character) {
+        setCharacterName(character.name);
+        setShowCharacterName('name');
+    }
+}, [character, setShowCharacterName]);
+
     return (
     <div className="marvel-card-container">
       <section className="card">
@@ -94,14 +115,21 @@ type MarvelCardProps = {
       </section>
       <section>
       <div className="checkbox-list">
-            <input type="checkbox" id="stories" value="stories" onChange={handleChange} checked={selectedOption === 'stories'} />
+      <input
+          type="radio"
+          id="name"
+          onChange={handleChangeName}
+          checked={!selectedOption}
+          value="name"
+        />
+        <label htmlFor="showName">Name</label>
+            <input type="radio" id="stories" value="stories" onChange={handleChange} checked={selectedOption === 'stories'} />
             <label htmlFor="stories">Stories</label>
-            <input type="checkbox" id="comics" value="comics" onChange={handleChange} checked={selectedOption === 'comics'} />
+            <input type="radio" id="comics" value="comics" onChange={handleChange} checked={selectedOption === 'comics'} />
             <label htmlFor="comics">Comics</label>
-            <input type="checkbox" id="series" value="series" onChange={handleChange} checked={selectedOption === 'series'} />
+            <input type="radio" id="series" value="series" onChange={handleChange} checked={selectedOption === 'series'} />
             <label htmlFor="series">Series</label>
           </div>
-        <h1 className="marvel-card__name">{name}</h1>
         
       <hr
       />

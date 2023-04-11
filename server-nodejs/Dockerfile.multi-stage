@@ -9,6 +9,8 @@ COPY . .
 
 RUN npm run build
 
+CMD ["ts-node-dev", "--poll", "--transpile-only", "-r", "esm", "src/index.ts"]
+
 FROM node:16-alpine as production
 
 ARG NODE_ENV=production

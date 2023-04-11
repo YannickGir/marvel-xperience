@@ -1,12 +1,13 @@
-
 import express, { Response, Request } from 'express';
 import { createHash } from 'crypto';
 import cors from 'cors';
-const fetch = (await import('node-fetch')).default;
-const app = express();
+import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import NodeCache from 'node-cache';
+
 dotenv.config();
+
+const app = express();
 
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
 const port = process.env.PORT || 4000;
@@ -16,51 +17,51 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
 //to allow requests from domain:
 app.use(cors({
-    origin: 'http://localhost:3000'
+  origin: 'http://localhost:3000'
 }));
 
 type CharacterData = {
-    selectedList: string;
-    data: {
-      results: {
-        id: number;
-        name: string;
-        description: string;
-        comics?: {
-          available: number;
-          collectionURI: string;
-          items: {
-            resourceURI: string;
-            name: string;
-          }[];
-        };
-        series?: {
-          available: number;
-          collectionURI: string;
-          items: {
-            resourceURI: string;
-            name: string;
-          }[];
-        };
-        stories?: {
-          available: number;
-          collectionURI: string;
-          items: {
-            resourceURI: string;
-            name: string;
-          }[];
-        };
-        thumbnail: {
-          path: string;
-          extension: string;
-        };
-      }[];
-    };
+  selectedList: string;
+  data: {
+    results: {
+      id: number;
+      name: string;
+      description: string;
+      comics?: {
+        available: number;
+        collectionURI: string;
+        items: {
+          resourceURI: string;
+          name: string;
+        }[];
+      };
+      series?: {
+        available: number;
+        collectionURI: string;
+        items: {
+          resourceURI: string;
+          name: string;
+        }[];
+      };
+      stories?: {
+        available: number;
+        collectionURI: string;
+        items: {
+          resourceURI: string;
+          name: string;
+        }[];
+      };
+      thumbnail: {
+        path: string;
+        extension: string;
+      };
+    }[];
   };
+};
 
-  app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
-  });
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello World!');
+});
 
 app.get('/marvel-api', async (req: Request, res: Response) => {
   try {
@@ -77,6 +78,9 @@ app.get('/marvel-api', async (req: Request, res: Response) => {
     let selectedList = '';
 
     switch (list) {
+        case 'characters':
+        selectedList = 'characters';
+        break;
       case 'comic':
         apiURL += '&hasDigitalComic=true';
         selectedList = 'comics';
@@ -98,11 +102,15 @@ app.get('/marvel-api', async (req: Request, res: Response) => {
     const cacheKey = `${apiURL}-${selectedList}`;
     const cachedResult = cache.get(cacheKey);
     if (cachedResult) {
-        return res.json(cachedResult);
+      console.log(`Using cached data for ${apiURL}-${selectedList}`);
+      res.json(cachedResult);
+      return;
     }
 
+    // Otherwise, fetch the data from the API
+    console.log(`Fetching data from Marvel API: ${apiURL}`);
     const response = await fetch(apiURL);
-    const data = (await response.json()) as CharacterData;
+    const data: CharacterData = await response.json();
     data.selectedList = selectedList;
 
     // Store the result in the cache

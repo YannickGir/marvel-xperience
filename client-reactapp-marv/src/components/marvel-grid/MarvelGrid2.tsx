@@ -8,7 +8,7 @@ import './marvel-grid.scss';
 import OutlineButton from '../button/Button';
 import MarvelCard2 from '../marvel-card/MarvelCard2';
 
-type CharactersData = {
+type CharacterData = {
     map(arg0: (result: any) => JSX.Element[]): JSX.Element[];
     selectedList: string;
   id: number;
@@ -50,7 +50,7 @@ type CharactersData = {
 const MarvelGrid2 = () => {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
-  const [pages, setPages] = useState<CharactersData[][]>([]);
+  const [pages, setPages] = useState<CharacterData[][]>([]);
   const [isloading, setIsLoading] = useState<boolean>(false);
   const [selectedList, setSelectedList] = useState<string>('comic');
 
@@ -92,7 +92,7 @@ const MarvelGrid2 = () => {
   return (
 <>
 <div className="marvel-grid">
-        {pages.flat().slice(0, page * 8).map((characterFromPages: CharactersData) => (
+        {pages.flat().slice(0, page * 8).map((characterFromPages: CharacterData) => (
          <MarvelCard2 key={characterFromPages.id} character={characterFromPages} isloading={isloading} dataFromPages={pages}/>
 ))}
       </div>

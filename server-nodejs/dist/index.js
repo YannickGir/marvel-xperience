@@ -1,11 +1,11 @@
 import express from 'express';
 import { createHash } from 'crypto';
 import cors from 'cors';
-const fetch = (await import('node-fetch')).default;
-const app = express();
+import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import NodeCache from 'node-cache';
 dotenv.config();
+const app = express();
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
 const port = process.env.PORT || 4000;
 // Create a cache instance
@@ -49,10 +49,14 @@ app.get('/marvel-api', async (req, res) => {
         const cacheKey = `${apiURL}-${selectedList}`;
         const cachedResult = cache.get(cacheKey);
         if (cachedResult) {
-            return res.json(cachedResult);
+            console.log(`Using cached data for ${apiURL}-${selectedList}`);
+            res.json(cachedResult);
+            return;
         }
+        // Otherwise, fetch the data from the API
+        console.log(`Fetching data from Marvel API: ${apiURL}`);
         const response = await fetch(apiURL);
-        const data = (await response.json());
+        const data = await response.json();
         data.selectedList = selectedList;
         // Store the result in the cache
         cache.set(cacheKey, data);

@@ -21,10 +21,6 @@ const headerNav = [
         display: 'Home2',
         path: '/home2'
     },
-    {
-        display: 'Dev&art',
-        path: '/Dev&art'
-    }
 ];
 
 
