@@ -31,7 +31,7 @@
     height: $header-height;
     position: fixed;
     top: 0;
-    left: 0;
+    left: -5rem;
     width: 100%;
     z-index: 99;
     transition: height 0.3s ease, background-color 0.3s ease;
@@ -55,7 +55,8 @@
         @include flex(center, unset);
 
         & > * ~ * {
-            margin-left: 2rem;
+            margin-left: 5rem;
+            margin-right: 15rem;
         }
 
         li {

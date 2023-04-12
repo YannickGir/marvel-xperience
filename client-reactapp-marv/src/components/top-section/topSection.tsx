@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import MarvelPng from "../../assets/images/pngwing.com.png";
-import BlobImg from "../../assets/images/blob.svg";
+// import BlobImg from "../../assets/images/blob.svg";
 import { SCREENS } from '../../components/responsive';
 
 const TopSectionContainer = styled.div`
@@ -117,9 +117,9 @@ export function TopSection() {
     <TopSectionContainer>
       <LeftContainer/>
       <RightContainer>
-            <BlobContainer>
+            {/* <BlobContainer>
                 <img src={BlobImg} alt='blob.svg'/>
-            </BlobContainer>
+            </BlobContainer> */}
             <StandaloneMarv>
                 <img src={MarvelPng} alt='Marvel.png' />
             </StandaloneMarv>

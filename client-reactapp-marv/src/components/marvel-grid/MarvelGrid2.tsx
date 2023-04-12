@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import OutlineButton from '../button/Button';
 import MarvelCard2 from '../marvel-card/MarvelCard2';
 import './marvel-grid.scss';
+const apiUrl = process.env.REACT_APP_API_URL;
+
 
 type CharacterData = {
     map(arg0: (result: any) => JSX.Element[]): JSX.Element[];
@@ -56,7 +58,7 @@ const MarvelGrid2 = () => {
         const fetchData = async (list: string) => {
             try {
                 setIsLoading(true);
-                const response = await fetch(`http://localhost:4000/marvel-api?list=${list}?page=${page}`);
+                const response = await fetch(`${apiUrl}/marvel-api?list=${list}?page=${page}`);
                 const data = await response.json();
                 if (data && data.data && data.data.total) {
                     setTotalPage(data.data.total);

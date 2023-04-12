@@ -26,7 +26,7 @@ app.get('/marvel-api', async (req, res) => {
             .update(timestamp + (privateKey ?? '') + publicKey)
             .digest('hex');
         const { list } = req.query;
-        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=30`;
+        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`;
         let selectedList = '';
         switch (list) {
             case 'characters':
