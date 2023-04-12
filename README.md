@@ -9,6 +9,7 @@ Indeed, it is possible to display either:
 - the list of series;
 - or the list of stories;
 - or the list of comics.
+
 Note that's you've got two pages :
 - Home that display additional features filtered by some functions in react.
 - Home2 that display additional features filtered by the Backend.
