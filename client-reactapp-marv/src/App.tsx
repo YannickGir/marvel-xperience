@@ -9,14 +9,14 @@ import Home2 from './pages/Home2';
 const App: FC = () => {
   return (
     <BrowserRouter>
-    <Header /> 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/home2" element={<Home2 />} />
-      </Routes>
-      <Footer/>
+        <Header /> 
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/home2" element={<Home2 />} />
+            </Routes>
+        <Footer/>
     </BrowserRouter>
-    
+
   );
 };
 

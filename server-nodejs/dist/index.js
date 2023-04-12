@@ -29,6 +29,9 @@ app.get('/marvel-api', async (req, res) => {
         let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=30`;
         let selectedList = '';
         switch (list) {
+            case 'characters':
+                selectedList = 'characters';
+                break;
             case 'comic':
                 apiURL += '&hasDigitalComic=true';
                 selectedList = 'comics';

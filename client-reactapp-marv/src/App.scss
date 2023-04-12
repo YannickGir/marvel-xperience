@@ -3,8 +3,6 @@
 @use "./SCSS/index"as *;
 @use "./SCSS/breakpoint"as *;
 
-
-
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap");
 
 * {
@@ -29,14 +27,12 @@ html {
 h1 {
     font-family: $font-family;
     font-weight: 200;
-    
 }
 
 body {
     font-family: $font-family;
     font-weight: 400;
     line-height: 1.5;
-
     background-color: $body-bg;
     color: $txt-color;
 

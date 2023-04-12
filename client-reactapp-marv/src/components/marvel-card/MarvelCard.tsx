@@ -1,8 +1,7 @@
 
-import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
-
-import './marvel-card.scss';
+import React, { useState, useCallback, ChangeEvent } from 'react';
 import Button from '../button/Button';
+import './marvel-card.scss';
 
 type CharacterData = {
   id: number,
@@ -45,9 +44,9 @@ type MarvelCardProps = {
 };
 
 type CharacterProperty = keyof Pick<CharacterData, 'stories' | 'comics' | 'series' | 'name'>;
+
 const MarvelCard = ({ character }: MarvelCardProps) => {
-    const { id, name, thumbnail, stories, comics, series } = character;
-  
+    const { name, thumbnail, stories, comics, series } = character;
     const [selectedOption, setSelectedOption] = useState<CharacterProperty>('name');
   
     const handleChange = useCallback((event: ChangeEvent<HTMLInputElement>) => {
@@ -91,19 +90,6 @@ const MarvelCard = ({ character }: MarvelCardProps) => {
           return null;
       }
     }, [selectedOption, stories?.items, comics?.items, series?.items]);
-  
-    const renderCharacterName = useCallback(() => {
-      switch (selectedOption) {
-        case 'stories':
-          return name;
-        case 'comics':
-          return `${name} - Comics`;
-        case 'series':
-          return `${name} - Series`;
-        default:
-          return null;
-      }
-    }, [selectedOption, name]);
 
     return (
         <div className="marvel-card-container">
@@ -116,25 +102,50 @@ const MarvelCard = ({ character }: MarvelCardProps) => {
           </section>
           <section>
             <div className="checkbox-list marvel-card-datas-checkboxes ">
-                        <input type="radio" id="name" value="name" onChange={handleChange} checked={selectedOption === 'name'} />
-                        <label htmlFor="name">Name</label>
-                        <input type="radio" id="stories" value="stories" onChange={handleChange} checked={selectedOption === 'stories'} />
-                        <label htmlFor="stories">Stories</label>
-                        <input type="radio" id="comics" value="comics" onChange={handleChange} checked={selectedOption === 'comics'} />
-                        <label htmlFor="comics">Comics</label>
-                        <input type="radio" id="series" value="series" onChange={handleChange} checked={selectedOption === 'series'} />
-                        <label htmlFor="series">Series</label>
+                <input 
+                    type="radio" 
+                    id="name" 
+                    value="name" 
+                    onChange={handleChange} 
+                    checked={selectedOption === 'name'} 
+                />
+                <label htmlFor="name">Name</label>
+
+                <input 
+                    type="radio" 
+                    id="stories" 
+                    value="stories" 
+                    onChange={handleChange} 
+                    checked={selectedOption === 'stories'} 
+                />
+                <label htmlFor="stories">Stories</label>
+                <input 
+                    type="radio" 
+                    id="comics" 
+                    value="comics" 
+                    onChange={handleChange} 
+                    checked={selectedOption === 'comics'} 
+                />
+                    <label htmlFor="comics">Comics</label>
+                <input 
+                    type="radio" 
+                    id="series" 
+                    value="series" 
+                    onChange={handleChange} 
+                    checked={selectedOption === 'series'} 
+                />
+                <label htmlFor="series">Series</label>
             </div>
             <hr />
-             {selectedOption === 'name' ? (
-              <h1 className="marvel-card__name">{name}</h1>
-            ) : (
+            {selectedOption === 'name' ? (
+                <h1 className="marvel-card__name">{name}</h1>
+                ) : (
               renderDataFilteredbyReact()
-            )} 
+                )} 
             <hr className="bottomhr" />
           </section>
         </div>
-      );
-            }
+    );
+}
 
 export default MarvelCard;

@@ -1,8 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
 import tw from 'twin.macro';
-
-
 import MarvelPng from "../../assets/images/pngwing.com.png";
 import BlobImg from "../../assets/images/blob.svg";
 import { SCREENS } from '../../components/responsive';
@@ -51,8 +49,6 @@ const BlobContainer = styled.div`
     width: 100%;
     height: auto;
     max-height: max-content;
-  
-    
   }
 
   @media (min-width: ${SCREENS.sm}) {
@@ -60,7 +56,6 @@ const BlobContainer = styled.div`
     max-height: 10em;
     right: -18em;
     top: -12em;
-   
   }
 
   @media (min-width: ${SCREENS.md}) {
@@ -68,7 +63,6 @@ const BlobContainer = styled.div`
     max-height: 30em;
     right: -40em;
     top: -15em;
-   
   }
 
   @media (min-width: ${SCREENS.lg}) {
@@ -76,7 +70,6 @@ const BlobContainer = styled.div`
     max-height: 30em;
     right: -24em;
     top: -15em;
-   
   }
 
   @media (min-width: ${SCREENS.xl}) {
@@ -84,8 +77,6 @@ const BlobContainer = styled.div`
     max-height: 30em;
     left: 60em;
     top: -15em;
-  
-    
   }
 `;
 
@@ -96,7 +87,6 @@ const StandaloneMarv = styled.div`
   right: -6em;
   top: -5em;
   position: absolute;
-
   img {
     width: auto;
     height: 60%;
@@ -122,27 +112,17 @@ const StandaloneMarv = styled.div`
   }
 `;
 
-const ButtonsContainer = styled.div`
-  ${tw`
-    flex
-    flex-wrap
-    mt-4
-  `};
-`;
-
 export function TopSection() {
   return (
     <TopSectionContainer>
-      <LeftContainer>
-       
-      </LeftContainer>
+      <LeftContainer/>
       <RightContainer>
-        <BlobContainer>
-          <img src={BlobImg} />
-        </BlobContainer>
-        <StandaloneMarv>
-          <img src={MarvelPng} />
-        </StandaloneMarv>
+            <BlobContainer>
+                <img src={BlobImg} alt='blob.svg'/>
+            </BlobContainer>
+            <StandaloneMarv>
+                <img src={MarvelPng} alt='Marvel.png' />
+            </StandaloneMarv>
       </RightContainer>
     </TopSectionContainer>
   );

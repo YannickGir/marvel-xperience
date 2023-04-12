@@ -21,4 +21,5 @@ services:
     image: devandart/marvelappserver:latest
     ports:
       - "8000:8000"
+    command: npm start
          
