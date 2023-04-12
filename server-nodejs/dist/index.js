@@ -5,6 +5,7 @@ import fetch from 'node-fetch';
 import dotenv from 'dotenv';
 import NodeCache from 'node-cache';
 dotenv.config();
+const reactUrl = process.env.REACT_APP_API_URL;
 const app = express();
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
 const port = process.env.PORT || 4000;
@@ -12,7 +13,7 @@ const port = process.env.PORT || 4000;
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 //to allow requests from domain:
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: `${reactUrl}`
 }));
 app.get('/', (req, res) => {
     res.send('Hello World!');

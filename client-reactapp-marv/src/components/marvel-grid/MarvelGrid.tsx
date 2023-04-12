@@ -52,7 +52,7 @@ const [pages, setPages] = useState<CharactersData[][]>([]);
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch(`${apiUrl}/marvel-api?page=${page}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/marvel-api?page=${page}`);
             const data = await response.json();
             setTotalPage(data.data.total);
             setPages(prevPages => [...prevPages, data.data.results]);

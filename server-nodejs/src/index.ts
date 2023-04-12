@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 import NodeCache from 'node-cache';
 
 dotenv.config();
-const apiUrl = process.env.REACT_APP_API_URL;
+const reactUrl = process.env.REACT_APP_API_URL;
 const app = express();
 
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
@@ -17,7 +17,7 @@ const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 
 //to allow requests from domain:
 app.use(cors({
-  origin: `${apiUrl}`
+  origin: `${process.env.REACT_APP_API_URL}`
 }));
 
 type CharacterData = {
