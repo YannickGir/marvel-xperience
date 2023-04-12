@@ -39,7 +39,7 @@ PRIVATE_KEY ='your private key from the API Marvel website'
 PUBLIC_KEY ='your public key from the API Marvel website'
 ```
 3- Follow these terminal steps :
-- [ ]Open a first terminal:
+- [ ] Open a first terminal:
 - use cd to change directories using the syntax: 
 ```
 cd marvel-xperience
@@ -60,7 +60,7 @@ npm i
 ```
 npm start
 ```
-- [ ]Open a second terminal
+- [ ] Open a second terminal
 - change directories to : 
 ```
 cd client-reactapp-marv
