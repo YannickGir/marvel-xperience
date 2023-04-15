@@ -5,13 +5,17 @@ import './button.scss';
 interface ButtonProps {
   className?: string;
   onClick?: () => void;
-  children: ReactNode;
+  children?: ReactNode;
+  label?: string;
+  disabled?: boolean;
+  active?: boolean;
+  text?: string;
 }
 
-const Button: FC<ButtonProps> = ({ className = '', onClick, children }) => {
+const Button: FC<ButtonProps> = ({ className = '', onClick, children, label, disabled }) => {
   return (
-    <button className={`btn ${className}`} onClick={onClick}>
-      {children}
+    <button className={`btn ${className}`} onClick={onClick} disabled={disabled}>
+      {label || children}
     </button>
   );
 };
@@ -20,26 +24,27 @@ Button.propTypes = {
   onClick: PropTypes.func
 };
 
-interface OutlineButtonProps {
-  className?: string;
-  onClick?: () => void;
-  children: ReactNode;
+interface OutlineButtonProps extends ButtonProps {
 }
 
 export const OutlineButton: FC<OutlineButtonProps> = ({
   className = '',
   onClick,
+  label,
+  disabled,
   children
 }) => {
   return (
-    <Button className={`btn-outline ${className}`} onClick={onClick}>
+    <Button className={`btn-outline ${className}`} onClick={onClick} label={label} disabled={disabled}>
       {children}
     </Button>
   );
 };
 
 OutlineButton.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  label: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 export default Button;

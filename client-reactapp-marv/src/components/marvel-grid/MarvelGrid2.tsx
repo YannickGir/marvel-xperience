@@ -1,11 +1,9 @@
 
 
 import React, { useState, useEffect } from 'react';
-import OutlineButton from '../button/Button';
 import MarvelCard2 from '../marvel-card/MarvelCard2';
 import './marvel-grid.scss';
-const apiUrl = process.env.NODEJS_API_URL;
-
+import Pagination2 from '../pagination/Pagination';
 
 type CharacterData = {
     map(arg0: (result: any) => JSX.Element[]): JSX.Element[];
@@ -52,13 +50,15 @@ const MarvelGrid2 = () => {
     const [pages, setPages] = useState<CharacterData[][]>([]);
     const [isloading, setIsLoading] = useState<boolean>(false);
     const [selectedList, setSelectedList] = useState<string>('comic');
+    const [currentPage, setCurrentPage] = useState(1)
+    const [postsPerPage, setPostsPerPage] = useState(8)
 
 
     useEffect(() => {
         const fetchData = async (list: string) => {
             try {
                 setIsLoading(true);
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/marvel-api?list=${list}?page=${page}`);
+                const response = await fetch(`${process.env.REACT_APP_NODEJS_API_URL}/marvel-api?list=${list}?page=${page}`);
                 const data = await response.json();
                 if (data && data.data && data.data.total) {
                     setTotalPage(data.data.total);
@@ -86,23 +86,21 @@ const MarvelGrid2 = () => {
         }
     };
 
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPosts = pages.flat().slice(firstPostIndex, lastPostIndex)
+
     return (
         <>
         <div className="marvel-grid">
-                {pages.flat().slice(0, page * 8).map((characterFromPages: CharacterData) => (
-                <MarvelCard2 key={characterFromPages.id} character={characterFromPages} isloading={isloading} dataFromPages={pages}/>
+                {pages.flat().slice(firstPostIndex, page * lastPostIndex).map((characterFromPages: CharacterData) => (
+                <MarvelCard2 key={characterFromPages.id} character={characterFromPages} isloading={isloading} dataFromPages={pages} currentPosts={currentPosts}/>
         ))}
             </div>
-            <div className="load-buttons load-more">
-                        {pages.length < totalPage && (
-                        <>
-                            <OutlineButton onClick={handleLoadMore}>Load More</OutlineButton>
-                            {page > 1 && (
-                                <OutlineButton onClick={handleLoadLess}>Load Less</OutlineButton>
-                            )}
-                        </>
-                    )}
+            <div className='pagination'>
+            <Pagination2 totalPosts = {totalPage} postsPerPage = {postsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
             </div> 
+            
         </>
     );
   

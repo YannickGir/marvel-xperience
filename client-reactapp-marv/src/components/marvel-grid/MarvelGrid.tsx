@@ -4,7 +4,7 @@ import MarvelCard from '../marvel-card/MarvelCard';
 import OutlineButton from '../button/Button';
 import './marvel-grid.scss';
 
-const apiUrl = process.env.REACT_APP_API_URL;
+const apiUrl = process.env.REACT_APP_NODEJS_API_URL;
 type CharactersData = {
     id: number;
     name: string;
@@ -52,7 +52,7 @@ const [pages, setPages] = useState<CharactersData[][]>([]);
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/marvel-api?page=${page}`);
+            const response = await fetch(`${process.env.REACT_APP_NODEJS_API_URL}/marvel-api?page=${page}`);
             const data = await response.json();
             setTotalPage(data.data.total);
             setPages(prevPages => [...prevPages, data.data.results]);

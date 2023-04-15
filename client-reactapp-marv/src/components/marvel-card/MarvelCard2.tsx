@@ -46,12 +46,13 @@ type MarvelCardProps = {
     character: CharacterData;
     isloading: boolean;
     dataFromPages: CharacterData[][];
-
+    currentPosts:CharacterData[];
   }
+  
   type CharacterPropertyname = keyof Pick<CharacterData, 'name'>;
   type CharacterProperty =  'stories' | 'comics' | 'series'| null;
   
-  const MarvelCard2 = ({ character, isloading, dataFromPages }: MarvelCardProps) => {
+  const MarvelCard2 = ({ character, isloading, dataFromPages, currentPosts }: MarvelCardProps) => {
 
     const { thumbnail} = character;
     const [selectedOption, setSelectedOption] = useState<CharacterProperty | null>(null);
@@ -73,6 +74,12 @@ type MarvelCardProps = {
       }, [handleChangeName]
     );
 
+    var characterfromcurrentPage: CharacterData;
+    currentPosts.map((characterfromcurrent:CharacterData)=> {characterfromcurrentPage=characterfromcurrent})
+//   useEffect (()=>{
+//       console.log(characterfromcurrentPage)}, []
+//       )
+
     const renderDataFilteredbyApi = () => {
         if (isloading) {
             return <div>Loading data...</div>;
@@ -81,7 +88,7 @@ type MarvelCardProps = {
             return <h1 className="marvel-card__name">{showCharacterName ? characterName : ''}</h1>
         } 
         else {
-            const selectedList = character[selectedOption];
+            const selectedList = characterfromcurrentPage[selectedOption];
             if (!selectedList) {
                 return <div>Select a list to display</div>;
             }
@@ -96,7 +103,7 @@ type MarvelCardProps = {
             );
         }
       };
-        
+    
     useEffect(() => {
         if (character) {
             setCharacterName(character.name);
