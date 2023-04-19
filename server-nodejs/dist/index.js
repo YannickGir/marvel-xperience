@@ -13,7 +13,7 @@ const port = process.env.PORT || 4000;
 const cache = new NodeCache({ stdTTL: 300, checkperiod: 600 });
 //to allow requests from domain:
 app.use(cors({
-    origin: `${reactUrl}`
+    origin: `${process.env.REACT_APP_API_URL}`
 }));
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -27,7 +27,7 @@ app.get('/marvel-api', async (req, res) => {
             .update(timestamp + (privateKey ?? '') + publicKey)
             .digest('hex');
         const { list } = req.query;
-        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`;
+        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=96`;
         let selectedList = '';
         switch (list) {
             case 'characters':

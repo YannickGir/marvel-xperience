@@ -4,15 +4,16 @@
 
 ## Presentation
 
-This application aims to display the list of characters from the world of marvel. Each of these characters is represented in a card containing his image, his name as well as a set of additional information. 
+This application aims to display the list of characters from the world of marvel. 
+Each of these characters is represented in a card containing his image, his name as well as a set of additional information. 
 Indeed, it is possible to display either:
 - the list of series;
 - or the list of stories;
 - or the list of comics.
 
 Note that's you've got two pages :
-- Home that display additional features filtered by some functions in react.
-- Home2 that display additional features filtered by the Backend.
+- Home that display additional features filtered by some functions in react and with load buttons.
+- Home2 that display additional features filtered by the Backend and with some pagination.
 
 Steps for the process are included below.
 

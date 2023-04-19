@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import NodeCache from 'node-cache';
 
 dotenv.config();
-const reactUrl = process.env.REACT_APP_API_URL;
 const app = express();
 
 //variable d'environnement PORT => tiendra compte de celle-ci sinon on utilisera par défaut le port 4000:
@@ -73,7 +72,7 @@ app.get('/marvel-api', async (req: Request, res: Response) => {
         .digest('hex');
         const { list } = req.query;
 
-        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=100`;
+        let apiURL = `https://gateway.marvel.com/v1/public/characters?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=96`;
         let selectedList = '';
 
         switch (list) {
